@@ -1,0 +1,51 @@
+.right-content {
+    margin-left: 30px !important;
+}
+.answer-user {
+    cursor: pointer;
+}
+
+.answer-inner {
+    align-items: center;
+    padding: 10px 0;
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+
+.answer-input {
+    width: 100%;
+    padding: 10px 48px 10px 5px;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.answer-input::placeholder {
+    color: #ccc;
+}
+
+.answer-input:focus {
+    outline-color: #0092fa;
+}
+
+.answer-btn {
+    background-color: transparent;
+    border: none;
+    color: #0092fa;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.answer-btn:focus {
+    outline-color: transparent;
+}
+.test{
+    display: none !important;
+}

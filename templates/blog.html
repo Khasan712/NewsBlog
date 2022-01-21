@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="heading-page header-text">
+      <section class="page-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="text-content">
+                <h4>Recent Posts</h4>
+                <h2>Our Recent Blog Entries</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Banner Ends Here -->
+
+    <section class="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="main-content">
+              <div class="row">
+                <div class="col-lg-8">
+                  <span>Stand Blog HTML5 Template</span>
+                  <h4>Creative HTML Template For Bloggers!</h4>
+                </div>
+                <div class="col-lg-4">
+                  <div class="main-button">
+                    <a href="https://templatemo.com/tm-551-stand-blog" target="_parent">Download Now!</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="blog-posts grid-system">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="all-blog-posts">
+              <div class="row">
+
+                {% for news in postNews %}
+                  <div class="col-lg-6">
+                    <div class="blog-post">
+                      <div class="blog-thumb">
+                        <img src="{{ news.image.url }}" alt="">
+                      </div>
+                      <div class="down-content">
+                        <span>{{ news.category }}</span>
+                        <a href="post-details.html"><h4>{{ news.description }}</h4></a>
+                        <ul class="post-info">
+                          <li><a href="#">{{ news.author }}</a></li>
+                          <li><a href="#">{{ news.date }}</a></li>
+                          <li><a href="{% url 'post_details' news.id %}">{{ news.comments.count }} Comments</a></li>
+                          <li><a href="{% url 'post_details' news.id %}">{% get_hit_count for news %} Viewer</a></li>
+                        </ul>
+                        <p>{{ news.message | slice:":200" }}... <a href="{% url 'post_details' news.id %}">more</a></p>
+                        {% comment %} <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p> {% endcomment %}
+                        <div class="post-options">
+                          <div class="row">
+                            <div class="col-lg-12">
+                              <ul class="post-tags">
+                                <li><i class="fa fa-tags"></i></li>
+                                <li><a href="#">Best Templates</a>,</li>
+                                <li><a href="#">TemplateMo</a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+
+                <div class="col-lg-12">
+                  <ul class="page-numbers">
+
+                    {% if postNews.has_previous %}
+                      <li><a href="?page=1"><i class="fa fa-angle-double-left"></i></a></li>
+                      <li><a href="?page={{ postNews.previous_page_number }}">{{ postNews.previous_page_number }}</a></li>
+                    {% else %}
+                      <li><a href="?page=1">1</a></li>
+                    {% endif %}
+
+                    
+                    <li>{{postNews.number}} of {{postNews.paginator.num_pages}}</li>
+                   
+
+                    {% if postNews.has_next %}
+                      <li><a href="?page={{postNews.next_page_number}}">{{ postNews.next_page_number }}</a></li>
+                      <li><a href="?page={{postNews.paginator.num_pages}}"><i class="fa fa-angle-double-right"></i></a></li>
+                    {% else %}
+                      <li><a href="?page={{postNews.paginator.num_pages}}">{{postNews.paginator.num_pages}}</a></li>
+                    {% endif %}
+                  
+                  </ul>
+                </div>
+
+
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="sidebar">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="sidebar-item search">
+
+
+
+                    <form id="search_form" name="gs" method="GET" action="#">
+                      <input type="text" name="search">
+                      <button type="submit" class="btn btn-orange btn-block btn-round mt-3">Search</button>
+                    </form>
+
+
+
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item recent-posts">
+                    <div class="sidebar-heading">
+                      <h2>Recent Posts</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+
+                        {% for news in lastThreeNews %}
+                          <li>
+                            <a href="{% url 'post_details' news.id %}">
+                              <h5>{{news.description}}</h5>
+                              <span>{{news.date}}</span>
+                            </a>
+                          </li>
+                        {% endfor %}
+                        
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="sidebar-item categories">
+                    <div class="sidebar-heading">
+                      <h2>Categories</h2>
+                    </div>
+                    <div class="content">
+                      <ul>
+                        {% for category in categories %}
+                          <li><a href="{% url 'blog_entries' %}?category={{ category.title }}">- {{ category.title }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+ {% endblock content %}
